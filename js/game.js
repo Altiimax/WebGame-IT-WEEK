@@ -18,6 +18,7 @@ function preload () {
     game.load.image('ground', 'assets/img/ground.png')
     game.load.image('platform', 'assets/img/platform.png')
     game.load.image('diamond', 'assets/img/diamond.png')
+    game.load.image('spike', 'assets/img/spike.png', 32, 32)
     game.load.spritesheet('redchar', 'assets/img/redchar.png', 32, 32)
 }
 
@@ -96,8 +97,6 @@ function create () {
         ledge.scale.setTo(0.2, 0.5)
     }
 
-
-
     //to the right
     ledge = platforms.create(880, 400, 'platform')
     ledge.body.immovable = true
@@ -110,6 +109,19 @@ function create () {
     ledge = platforms.create(1180, 280, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
+
+    let spike;
+    let counter = 500
+
+    spikes = game.add.group()
+    spikes.enableBody = true
+
+    for( let i = 0; i < 25; i++ ){
+        spike  = spikes.create(counter, 705, 'spike')
+        spike.body.immovable = true
+        spike.scale.setTo(0.2, 0.2)
+        counter += 25
+    }
 
     // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'redchar')
@@ -159,6 +171,7 @@ function update () {
 
     //  Call callectionDiamond() if player overlaps with a diamond
     game.physics.arcade.overlap(player, diamonds, collectDiamond, null, this)
+    game.physics.arcade.overlap(player, spikes, killPlayer, null, this)
 
     // Configure the controls!
     if (cursors.left.isDown) {
@@ -195,4 +208,8 @@ function collectDiamond (player, diamond) {
     score += 10
     scoreText.text = 'Score: ' + score
     return true
+}
+
+function killPlayer() {
+    create();
 }
