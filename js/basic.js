@@ -20,6 +20,8 @@ function preload () {
     game.load.spritesheet('woof', 'woof.png', 32, 32)
 }
 
+
+
 function create () {
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE)
@@ -63,6 +65,39 @@ function create () {
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
+    //to the left
+    ledge = platforms.create(550, 400, 'ground')
+    ledge.body.immovable = true
+    ledge.visible = false;
+    ledge.scale.setTo(0.2, 0.5)
+
+    ledge = platforms.create(400, 340, 'ground')
+    ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
+
+    let num = Math.floor(Math.random() * 2);
+
+    if(num === 0){
+        ledge = platforms.create(250, 250, 'ground')
+        ledge.body.immovable = false
+        ledge.scale.setTo(0.2, 0.5)
+
+        ledge = platforms.create(550, 250, 'ground')
+        ledge.body.immovable = true
+        ledge.scale.setTo(0.2, 0.5)
+    } else {
+        ledge = platforms.create(250, 250, 'ground')
+        ledge.body.immovable = true
+        ledge.scale.setTo(0.2, 0.5)
+
+        ledge = platforms.create(550, 250, 'ground')
+        ledge.body.immovable = false
+        ledge.scale.setTo(0.2, 0.5)
+    }
+
+
+
+    //to the right
     ledge = platforms.create(880, 400, 'ground')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
@@ -129,11 +164,11 @@ function update () {
 
     // Configure the controls!
     if (cursors.left.isDown) {
-        player.body.velocity.x = -150
+        player.body.velocity.x = -200
 
         player.animations.play('left')
     } else if (cursors.right.isDown) {
-        player.body.velocity.x = 150
+        player.body.velocity.x = 200
 
         player.animations.play('right')
     } else {
