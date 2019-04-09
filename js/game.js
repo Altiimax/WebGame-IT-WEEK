@@ -15,9 +15,10 @@ let player
 function preload () {
     // Load & Define our game assets
     game.load.image('background', 'assets/img/background.png')
-    game.load.image('ground', 'assets/img/platform.png')
+    game.load.image('ground', 'assets/img/ground.png')
+    game.load.image('platform', 'assets/img/platform.png')
     game.load.image('diamond', 'assets/img/diamond.png')
-    game.load.spritesheet('woof', 'assets/img/woof.png', 32, 32)
+    game.load.spritesheet('redchar', 'assets/img/redchar.png', 32, 32)
 }
 
 
@@ -45,52 +46,52 @@ function create () {
     ground.body.immovable = true
 
     //  Now let's create two ledges
-    let ledge = platforms.create(100, 640, 'ground')
+    let ledge = platforms.create(100, 640, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
-    ledge = platforms.create(250, 640, 'ground')
+    ledge = platforms.create(250, 640, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
-    ledge = platforms.create(430, 580, 'ground')
+    ledge = platforms.create(430, 580, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
-    ledge = platforms.create(580, 520, 'ground')
+    ledge = platforms.create(580, 520, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
-    ledge = platforms.create(730, 460, 'ground')
+    ledge = platforms.create(730, 460, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
     //to the left
-    ledge = platforms.create(550, 400, 'ground')
+    ledge = platforms.create(550, 400, 'platform')
     ledge.body.immovable = true
     ledge.visible = false;
     ledge.scale.setTo(0.2, 0.5)
 
-    ledge = platforms.create(400, 340, 'ground')
+    ledge = platforms.create(400, 340, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
     let num = Math.floor(Math.random() * 2);
 
     if(num === 0){
-        ledge = platforms.create(250, 250, 'ground')
+        ledge = platforms.create(250, 250, 'platform')
         ledge.body.immovable = false
         ledge.scale.setTo(0.2, 0.5)
 
-        ledge = platforms.create(550, 250, 'ground')
+        ledge = platforms.create(550, 250, 'platform')
         ledge.body.immovable = true
         ledge.scale.setTo(0.2, 0.5)
     } else {
-        ledge = platforms.create(250, 250, 'ground')
+        ledge = platforms.create(250, 250, 'platform')
         ledge.body.immovable = true
         ledge.scale.setTo(0.2, 0.5)
 
-        ledge = platforms.create(550, 250, 'ground')
+        ledge = platforms.create(550, 250, 'platform')
         ledge.body.immovable = false
         ledge.scale.setTo(0.2, 0.5)
     }
@@ -98,23 +99,24 @@ function create () {
 
 
     //to the right
-    ledge = platforms.create(880, 400, 'ground')
+    ledge = platforms.create(880, 400, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
-    ledge = platforms.create(1030, 340, 'ground')
+    ledge = platforms.create(1030, 340, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
-    ledge = platforms.create(1180, 280, 'ground')
+    ledge = platforms.create(1180, 280, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
     // The player and its settings
-    player = game.add.sprite(32, game.world.height - 150, 'woof')
+    player = game.add.sprite(32, game.world.height - 150, 'redchar')
 
     //  We need to enable physics on the player
     game.physics.arcade.enable(player)
+    player.scale.setTo(1.4, 1.4)
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.body.bounce.y = 0.2
@@ -122,8 +124,8 @@ function create () {
     player.body.collideWorldBounds = true
 
     //  Our two animations, walking left and right.
-    player.animations.add('left', [0, 1], 10, true)
-    player.animations.add('right', [2, 3], 10, true)
+    player.animations.add('left', [3, 4], 10, true)
+    player.animations.add('right', [1, 2], 10, true)
 
     //  Finally some diamonds to collect
     diamonds = game.add.group()
