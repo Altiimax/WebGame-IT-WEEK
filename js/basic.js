@@ -191,7 +191,10 @@ function collectDiamond (player, diamond) {
     // Removes the diamond from the screen
     diamond.kill()
 
+    //create(); => restarts the game
+
     //  And update the score
     score += 10
     scoreText.text = 'Score: ' + score
+    return true
 }
