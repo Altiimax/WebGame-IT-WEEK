@@ -43,15 +43,41 @@ function create () {
     ground.body.immovable = true
 
     //  Now let's create two ledges
-    let ledge = platforms.create(200, 450, 'ground')
+    let ledge = platforms.create(100, 640, 'ground')
     ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
 
-    ledge.scale.setTo(0.3, 0.5)
-
-    ledge = platforms.create(50, 350, 'ground')
+    ledge = platforms.create(250, 640, 'ground')
     ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
 
-    ledge.scale.setTo(0.3, 0.5)
+    ledge = platforms.create(430, 580, 'ground')
+    ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
+
+    ledge = platforms.create(580, 520, 'ground')
+    ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
+
+    ledge = platforms.create(730, 460, 'ground')
+    ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
+
+    ledge = platforms.create(880, 400, 'ground')
+    ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
+
+    ledge = platforms.create(1030, 340, 'ground')
+    ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
+
+    ledge = platforms.create(1180, 280, 'ground')
+    ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
+
+    /*ledge = platforms.create(50, 350, 'ground')
+    ledge.body.immovable = true
+    ledge.scale.setTo(0.3, 0.5)*/
 
     // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'woof')
