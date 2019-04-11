@@ -63,7 +63,7 @@ function createAllPlatforms() {
     createPlatform(ledge, platforms, 250, 600, 0.2, 0.5, 'platform');
     createPlatform(ledge, platforms, 430, 580, 0.2, 0.5, 'platform');
     createPlatform(ledge, platforms, 580, 520, 0.2, 0.5, 'platform');
-    createPlatform(ledge, platforms, 730, 460, 0.2, 0.5, 'platform');
+    createPlatform(ledge, platforms, 730, 460, 0.3, 0.5, 'platform');
 
     //to the left
     createPlatform(ledge, platforms, 550, 400, 0.2, 0.5, 'platform', true, false);
@@ -85,6 +85,9 @@ function createAllPlatforms() {
     createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, 'platform', true);
     createPlatform(ledge, platforms, 600, 650, 0.2, 0.5, 'platform', true);
     createPlatform(ledge, platforms, 410, 150, 0.2, 0.5, 'platform', true, false)
+    createPlatform(ledge, platforms, 1190, 100, 0.2, 0.5, 'platform', true)
+    createPlatform(ledge, platforms, 1050, 180, 0.3, 0.5, 'platform', true)
+
     //lower right 3
     createPlatform(ledge, platforms, 1060, 550, 0.2, 0.5, 'platform', true, false);
     createPlatform(ledge, platforms, 1020, 650, 0.2, 0.5, 'platform', true, false);
@@ -118,12 +121,17 @@ function create() {
     invisbleSpikes = game.add.group();
     invisbleSpikes.enableBody = true;
 
+    let invisbleSpike2;
+    invisbleSpikes2 = game.add.group();
+    invisbleSpikes2.enableBody = true;
+
+
     //  Now let's create two ledges
     createAllPlatforms();
     //createPlatform(invisbleSpike, invisbleSpikes, 100, 610, 0.2, 0.2, 'spike', true, false);
     //createPlatform(invisbleSpike, invisbleSpikes, 125, 610, 0.2, 0.2, 'spike', true, false);
     createPlatform(invisbleSpike, invisbleSpikes, 145, 610, 0.2, 0.2, 'spike', true, false);
-
+	createPlatform(invisbleSpike2, invisbleSpikes2, 1070, 148, 0.2, 0.2, 'spike', true, false);
 
     ledge = platforms.create(600, 650, 'platform')
     ledge.body.immovable = true
@@ -171,9 +179,13 @@ function create() {
     diamond2.body.gravity.y = 1000;
     diamond2.body.bounce.y = 0.3 + Math.random() * 0.2;
 
-    let diamond3 = diamonds.create(620, 600, 'diamond');
+    let diamond3 = diamonds.create(650, 600, 'diamond');
     diamond3.body.gravity.y = 1000;
     diamond3.body.bounce.y = 0.3 + Math.random() * 0.2;
+
+    let diamond4 = diamonds.create(1210, 60, 'diamond');
+    diamond4.body.gravity.y = 1000;
+    diamond4.body.bounce.y = 0.3 + Math.random() * 0.2;
     //  Create the score text
     scoreText = game.add.text(16, 16, '', {fontSize: '32px', fill: '#FFF'})
 
@@ -211,6 +223,22 @@ function update() {
         }
     }, null, this);
 
+    game.physics.arcade.overlap(player, invisbleSpikes2, () => {
+        for (let i = 0, len = invisbleSpikes2.children.length; i < len; i++) {
+            invisbleSpikes2.children[i].visible = true;
+
+            const sleep = (milliseconds) => {
+                return new Promise(resolve => setTimeout(resolve, milliseconds))
+            };
+
+            sleep(500).then(() =>{
+                killPlayer();
+            })
+
+
+        }
+    }, null, this);
+
     // Configure the controls!
     if (cursors.left.isDown) {
         player.body.velocity.x = -200
@@ -230,7 +258,7 @@ function update() {
         player.body.velocity.y = -400
     }
     // Show an alert modal when score reaches 120
-    if (score === 120) {
+    if (score === 40) {
         alert('You win!')
         score = 0
     }
@@ -238,6 +266,9 @@ function update() {
         createspikesTop();
         counterScore++;
     }
+}
+
+function invSpike(){
 
 }
 
@@ -262,6 +293,7 @@ function killPlayer() {
 
     for (let i = 0, len = invisbleSpikes.children.length; i < len; i++) {
         invisbleSpikes.children[i].visible = false;
+        invisbleSpikes2.children[i].visible = false;
     }
 
     if (spikesTop !== undefined) {
@@ -292,6 +324,10 @@ function killPlayer() {
     let diamond3 = diamonds.create(620, 600, 'diamond');
     diamond3.body.gravity.y = 1000;
     diamond3.body.bounce.y = 0.3 + Math.random() * 0.2;
+
+    let diamond4 = diamonds.create(1210, 60, 'diamond');
+    diamond4.body.gravity.y = 1000;
+    diamond4.body.bounce.y = 0.3 + Math.random() * 0.2;
 
     player.kill();
     player = game.add.sprite(32, game.world.height - 150, 'redchar')
