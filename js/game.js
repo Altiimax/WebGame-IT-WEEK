@@ -159,12 +159,17 @@ function create () {
     diamonds.enableBody = true
 
     //  Create diamonds to collect
-        let diamond = diamonds.create(620, 600, 'diamond')
+    let diamond2 = diamonds.create(440,100,'diamond');
 
-        //  Drop em from the sky and bounce a bit
-        diamond.body.gravity.y = 1000
-        diamond.body.bounce.y = 0.3 + Math.random() * 0.2
-
+    diamond2.body.gravity.y = 1000;
+    diamond2.body.bounce.y = 0.3 + Math.random() * 0.2;
+    //  Drop em from the sky and bounce a bit
+    let diamond = diamonds.create(1250, 600, 'diamond');
+    diamond.body.gravity.y = 1000
+    diamond.body.bounce.y = 0.3 + Math.random() * 0.2;
+    let diamond3 = diamonds.create(620,600, 'diamond');
+    diamond3.body.gravity.y = 1000;
+    diamond3.body.bounce.y = 0.3 + Math.random() * 0.2;
     //  Create the score text
     scoreText = game.add.text(16, 16, '', { fontSize: '32px', fill: '#FFF' })
 
