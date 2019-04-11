@@ -97,7 +97,6 @@ function create () {
     createPlatform(ledge, platforms, 1020, 650, 0.2, 0.5, true, false);
     createPlatform(ledge, platforms, 1100, 450, 0.2, 0.5, true,false);
     createPlatform(ledge, platforms, 1250, 650, 0.2, 0.5,true);
-    let spike;
     createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, 'platform', true);
     createPlatform(ledge, platforms, 1030, 340, 0.2, 0.5, 'platform', true);
     createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, 'platform', true);
@@ -159,9 +158,6 @@ function create () {
 
 function update () {
 	// Spikes falling
-	for (let i =0;i<60;i++) {
-
-	}
 
     //  We want the player to stop when not moving
     player.body.velocity.x = 0
