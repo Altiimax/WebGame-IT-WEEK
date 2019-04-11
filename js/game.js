@@ -87,6 +87,17 @@ function create () {
     }
 
     //to the right
+    createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, true);
+    createPlatform(ledge, platforms, 1030, 350, 0.2, 0.5, true);
+    createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, true);
+    createPlatform(ledge, platforms, 600, 650, 0.2, 0.5, true);
+    createPlatform(ledge, platforms, 410, 150, 0.2, 0.5, true, false)
+    //lower right 3
+    createPlatform(ledge, platforms, 1060, 550, 0.2, 0.5, true,false);
+    createPlatform(ledge, platforms, 1020, 650, 0.2, 0.5, true, false);
+    createPlatform(ledge, platforms, 1100, 450, 0.2, 0.5, true,false);
+    createPlatform(ledge, platforms, 1250, 650, 0.2, 0.5,true);
+    let spike;
     createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, 'platform', true);
     createPlatform(ledge, platforms, 1030, 340, 0.2, 0.5, 'platform', true);
     createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, 'platform', true);
@@ -96,21 +107,12 @@ function create () {
     ledge.scale.setTo(0.2, 0.5)
 
     let counter = 500
-    let leftCorner = 0
 
     for( let i = 0; i < 25; i++ ){
         spike  = spikes.create(counter, 705, 'spike')
         spike.body.immovable = true
         spike.scale.setTo(0.2, 0.2)
         counter += 25
-    }
-
-    for (let i =0; i< 60; i++){
-    	spike = spikes.create(leftCorner, 30, 'spike')
-    	spike.body.immovable = true
-    	spike.scale.setTo(0.2, 0.2)
-    	spike.angle = -180
-    	leftCorner += 25
     }
 
     // The player and its settings
@@ -136,12 +138,18 @@ function create () {
     diamonds.enableBody = true
 
     //  Create diamonds to collect
-        let diamond = diamonds.create(620, 600, 'diamond')
+    //  Drop em from the sky and bounce a bit
+    let diamond = diamonds.create(1250, 700, 'diamond');
+    diamond.body.gravity.y = 1000
+    diamond.body.bounce.y = 0.3 + Math.random() * 0.2;
 
-        //  Drop em from the sky and bounce a bit
-        diamond.body.gravity.y = 1000
-        diamond.body.bounce.y = 0.3 + Math.random() * 0.2
+    let diamond2 = diamonds.create(440,100,'diamond');
+    diamond2.body.gravity.y = 1000;
+    diamond2.body.bounce.y = 0.3 + Math.random() * 0.2;
 
+    let diamond3 = diamonds.create(620,600, 'diamond');
+    diamond3.body.gravity.y = 1000;
+    diamond3.body.bounce.y = 0.3 + Math.random() * 0.2;
     //  Create the score text
     scoreText = game.add.text(16, 16, '', { fontSize: '32px', fill: '#FFF' })
 
@@ -150,6 +158,11 @@ function create () {
 }
 
 function update () {
+	// Spikes falling
+	for (let i =0;i<60;i++) {
+
+	}
+
     //  We want the player to stop when not moving
     player.body.velocity.x = 0
 
@@ -189,6 +202,21 @@ function update () {
     if (score === 120) {
         alert('You win!')
         score = 0
+    }
+    if (score === 10){
+    	let spike;
+    	spikesTop = game.add.group();
+    	spikesTop.enableBody = true;
+    	let leftCorner = 0
+    	for (let i =0; i< 60; i++){
+    	spike = spikesTop.create(leftCorner, 30, 'spike')
+    	spike.body.immovable = false
+    	spike.scale.setTo(0.2, 0.2)
+    	spike.angle = -180
+    	leftCorner += 25
+    	spike.body.gravity.y = 5;
+    }
+    game.physics.arcade.overlap(player, spikesTop, killPlayer, null, this)
     }
 }
 
