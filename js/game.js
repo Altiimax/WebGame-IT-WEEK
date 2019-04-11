@@ -78,10 +78,15 @@ function create () {
 
     //to the right
     createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, true);
-    createPlatform(ledge, platforms, 1030, 340, 0.2, 0.5, true);
+    createPlatform(ledge, platforms, 1030, 350, 0.2, 0.5, true);
     createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, true);
     createPlatform(ledge, platforms, 600, 650, 0.2, 0.5, true);
-
+    createPlatform(ledge, platforms, 410, 150, 0.2, 0.5, true, false)
+    //lower right 3
+    createPlatform(ledge, platforms, 1060, 550, 0.2, 0.5, true,false);
+    createPlatform(ledge, platforms, 1020, 650, 0.2, 0.5, true, false);
+    createPlatform(ledge, platforms, 1100, 450, 0.2, 0.5, true,false);
+    createPlatform(ledge, platforms, 1250, 650, 0.2, 0.5,true);
     let spike;
     let counter = 500
     let leftCorner = 0
@@ -131,14 +136,15 @@ function create () {
     diamonds.enableBody = true
 
     //  Create diamonds to collect
-    let diamond2 = diamonds.create(440,100,'diamond');
-
-    diamond2.body.gravity.y = 1000;
-    diamond2.body.bounce.y = 0.3 + Math.random() * 0.2;
     //  Drop em from the sky and bounce a bit
-    let diamond = diamonds.create(1250, 600, 'diamond');
+    let diamond = diamonds.create(1250, 700, 'diamond');
     diamond.body.gravity.y = 1000
     diamond.body.bounce.y = 0.3 + Math.random() * 0.2;
+
+    let diamond2 = diamonds.create(440,100,'diamond');
+    diamond2.body.gravity.y = 1000;
+    diamond2.body.bounce.y = 0.3 + Math.random() * 0.2;
+
     let diamond3 = diamonds.create(620,600, 'diamond');
     diamond3.body.gravity.y = 1000;
     diamond3.body.bounce.y = 0.3 + Math.random() * 0.2;
