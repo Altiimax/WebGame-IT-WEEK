@@ -253,6 +253,7 @@ function killPlayer() {
     //create();
     counterScore = 0;
     player.body.x = 10;
+    player.body.y = 650;
     clearInterval(timer);
     //this.game.state.start("gameOver");
     score = 0;
