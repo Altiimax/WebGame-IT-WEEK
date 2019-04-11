@@ -96,21 +96,12 @@ function create () {
     ledge.scale.setTo(0.2, 0.5)
 
     let counter = 500
-    let leftCorner = 0
 
     for( let i = 0; i < 25; i++ ){
         spike  = spikes.create(counter, 705, 'spike')
         spike.body.immovable = true
         spike.scale.setTo(0.2, 0.2)
         counter += 25
-    }
-
-    for (let i =0; i< 60; i++){
-    	spike = spikes.create(leftCorner, 30, 'spike')
-    	spike.body.immovable = true
-    	spike.scale.setTo(0.2, 0.2)
-    	spike.angle = -180
-    	leftCorner += 25
     }
 
     // The player and its settings
@@ -151,9 +142,6 @@ function create () {
 
 function update () {
 	// Spikes falling
-	for (let i =0;i<60;i++) {
-		
-	}
 
     //  We want the player to stop when not moving
     player.body.velocity.x = 0
@@ -194,6 +182,21 @@ function update () {
     if (score === 120) {
         alert('You win!')
         score = 0
+    }
+    if (score === 10){
+    	let spike;
+    	spikesTop = game.add.group();
+    	spikesTop.enableBody = true;
+    	let leftCorner = 0
+    	for (let i =0; i< 60; i++){
+    	spike = spikesTop.create(leftCorner, 30, 'spike')
+    	spike.body.immovable = false
+    	spike.scale.setTo(0.2, 0.2)
+    	spike.angle = -180
+    	leftCorner += 25
+    	spike.body.gravity.y = 5;
+    }
+    game.physics.arcade.overlap(player, spikesTop, killPlayer, null, this)
     }
 }
 
