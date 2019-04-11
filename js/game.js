@@ -112,6 +112,7 @@ function create () {
 
     let spike;
     let counter = 500
+    let leftCorner = 0
 
     spikes = game.add.group()
     spikes.enableBody = true
@@ -121,6 +122,14 @@ function create () {
         spike.body.immovable = true
         spike.scale.setTo(0.2, 0.2)
         counter += 25
+    }
+
+    for (let i =0; i< 60; i++){
+    	spike = spikes.create(leftCorner, 30, 'spike')
+    	spike.body.immovable = true
+    	spike.scale.setTo(0.2, 0.2)
+    	spike.angle = -180
+    	leftCorner += 25
     }
 
     // The player and its settings
