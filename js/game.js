@@ -186,7 +186,7 @@ function update () {
     game.physics.arcade.overlap(player, diamonds, collectDiamond, null, this)
     game.physics.arcade.overlap(player, spikes, killPlayer, null, this)
     game.physics.arcade.overlap(player, spikesTop, killPlayer, null, this)
-    game.physics.arcade.overlap(player, invisbleSpikes, () => {
+    /game.physics.arcade.overlap(player, invisbleSpikes, () => {
         for(let i = 0, len = invisbleSpikes.children.length; i < len; i++) {
             invisbleSpikes.children[i].visible = true;
             let timer = setInterval(killPlayer, 800);
@@ -238,13 +238,4 @@ function collectDiamond (player, diamond) {
 function killPlayer() {
     create();
     score = 0;
-}
-
-function sleep(milliseconds) {
-    let start = new Date().getTime();
-    for (let i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds){
-            break;
-        }
-    }
 }
