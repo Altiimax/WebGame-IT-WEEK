@@ -22,8 +22,8 @@ function preload () {
     game.load.spritesheet('redchar', 'assets/img/redchar.png', 32, 32)
 }
 
-function createPlatform(ledge, platforms, x, y, xScale, yScale, immovable = true, visible = true) {
-    ledge = platforms.create(x, y, 'platform');
+function createPlatform(ledge, platforms, x, y, xScale, yScale, image, immovable = true, visible = true) {
+    ledge = platforms.create(x, y, image);
     ledge.body.immovable = immovable;
     ledge.visible = visible;
     ledge.scale.setTo(xScale, yScale);
@@ -46,49 +46,55 @@ function create () {
     let ground = platforms.create(0, game.world.height - 64, 'ground')
 
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground.scale.setTo(4, 2)
+    ground.scale.setTo(4, 2);
 
     //  This stops it from falling away when you jump on it
-    ground.body.immovable = true
+    ground.body.immovable = true;
 
+    let spike;
+    spikes = game.add.group();
+    spikes.enableBody = true;
+
+    let invisbleSpike;
+    invisbleSpikes = game.add.group();
+    invisbleSpikes.enableBody = true;
 
     //  Now let's create two ledges
     let ledge;
-    createPlatform(ledge, platforms, 100, 640, 0.2, 0.5);
-    createPlatform(ledge, platforms, 250, 640, 0.2, 0.5);
-    createPlatform(ledge, platforms, 430, 580, 0.2, 0.5);
-    createPlatform(ledge, platforms, 580, 520, 0.2, 0.5);
-    createPlatform(ledge, platforms, 730, 460, 0.2, 0.5);
+    createPlatform(ledge, platforms, 100, 640, 0.2, 0.5, 'platform');
+    createPlatform(invisbleSpike, invisbleSpikes, 100, 610, 0.2, 0.2);
+    //createPlatform(invisbleSpike, invisbleSpikes, 125, 610, 0.2, 0.2, 'spike', true, false);
+    //createPlatform(invisbleSpike, invisbleSpikes, 150, 610, 0.2, 0.2, 'spike', true, false);
+    createPlatform(ledge, platforms, 250, 640, 0.2, 0.5, 'platform');
+    createPlatform(ledge, platforms, 430, 580, 0.2, 0.5, 'platform');
+    createPlatform(ledge, platforms, 580, 520, 0.2, 0.5, 'platform');
+    createPlatform(ledge, platforms, 730, 460, 0.2, 0.5, 'platform');
 
     //to the left
-    createPlatform(ledge, platforms, 550, 400, 0.2, 0.5, true, false);
-    createPlatform(ledge, platforms, 400, 340);
+    createPlatform(ledge, platforms, 550, 400, 0.2, 0.5, 'platform', true, false);
+    createPlatform(ledge, platforms, 400, 340, 0.2, 0.5, 'platform');
 
     let num = Math.floor(Math.random() * 2);
 
     if(num === 0){
-        createPlatform(ledge, platforms, 250, 250, 0.2, 0.5, false);
-        createPlatform(ledge, platforms, 550, 250, 0.2, 0.5, true);
+        createPlatform(ledge, platforms, 250, 250, 0.2, 0.5, 'platform', false);
+        createPlatform(ledge, platforms, 550, 250, 0.2, 0.5, 'platform', true);
     } else {
-        createPlatform(ledge, platforms, 250, 250, 0.2, 0.5, true);
-        createPlatform(ledge, platforms, 550, 250, 0.2, 0.5, false);
+        createPlatform(ledge, platforms, 250, 250, 0.2, 0.5, 'platform', true);
+        createPlatform(ledge, platforms, 550, 250, 0.2, 0.5, 'platform', false);
     }
 
     //to the right
-    createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, true);
-    createPlatform(ledge, platforms, 1030, 340, 0.2, 0.5, true);
-    createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, true);
+    createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, 'platform', true);
+    createPlatform(ledge, platforms, 1030, 340, 0.2, 0.5, 'platform', true);
+    createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, 'platform', true);
 
     ledge = platforms.create(600, 650, 'platform')
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
-    let spike;
     let counter = 500
     let leftCorner = 0
-
-    spikes = game.add.group()
-    spikes.enableBody = true
 
     for( let i = 0; i < 25; i++ ){
         spike  = spikes.create(counter, 705, 'spike')
@@ -152,6 +158,12 @@ function update () {
     //  Call callectionDiamond() if player overlaps with a diamond
     game.physics.arcade.overlap(player, diamonds, collectDiamond, null, this)
     game.physics.arcade.overlap(player, spikes, killPlayer, null, this)
+    game.physics.arcade.overlap(player, invisbleSpikes, () => {
+        for(let i = 0, len = invisbleSpikes.children.length; i < len; i++) {
+            invisbleSpikes.children[i].visible = true;
+            killPlayer();
+        }
+    }, null, this);
 
     // Configure the controls!
     if (cursors.left.isDown) {
