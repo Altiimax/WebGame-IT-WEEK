@@ -189,7 +189,7 @@ function update () {
     game.physics.arcade.overlap(player, invisbleSpikes, () => {
         for(let i = 0, len = invisbleSpikes.children.length; i < len; i++) {
             invisbleSpikes.children[i].visible = true;
-            let timer = setInterval(killPlayer, 800);
+            killPlayer();
         }
     }, null, this);
 
