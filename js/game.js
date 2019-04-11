@@ -24,7 +24,12 @@ function preload () {
     game.load.spritesheet('redchar', 'assets/img/redchar.png', 32, 32)
 }
 
-
+function createPlatform(ledge, platforms, x, y, xScale, yScale, immovable = true, visible = true) {
+    ledge = platforms.create(x, y, 'platform');
+    ledge.body.immovable = immovable;
+    ledge.visible = visible;
+    ledge.scale.setTo(xScale, yScale);
+}
 
 function create () {
     //  We're going to be using physics, so enable the Arcade Physics system
@@ -48,69 +53,33 @@ function create () {
     //  This stops it from falling away when you jump on it
     ground.body.immovable = true
 
+
     //  Now let's create two ledges
-    let ledge = platforms.create(100, 640, 'platform')
-    ledge.body.immovable = true
-    ledge.scale.setTo(0.2, 0.5)
-
-    ledge = platforms.create(250, 640, 'platform')
-    ledge.body.immovable = true
-    ledge.scale.setTo(0.2, 0.5)
-
-    ledge = platforms.create(430, 580, 'platform')
-    ledge.body.immovable = true
-    ledge.scale.setTo(0.2, 0.5)
-
-    ledge = platforms.create(580, 520, 'platform')
-    ledge.body.immovable = true
-    ledge.scale.setTo(0.2, 0.5)
-
-    ledge = platforms.create(730, 460, 'platform')
-    ledge.body.immovable = true
-    ledge.scale.setTo(0.2, 0.5)
+    let ledge;
+    createPlatform(ledge, platforms, 100, 640, 0.2, 0.5);
+    createPlatform(ledge, platforms, 250, 640, 0.2, 0.5);
+    createPlatform(ledge, platforms, 430, 580, 0.2, 0.5);
+    createPlatform(ledge, platforms, 580, 520, 0.2, 0.5);
+    createPlatform(ledge, platforms, 730, 460, 0.2, 0.5);
 
     //to the left
-    ledge = platforms.create(550, 400, 'platform')
-    ledge.body.immovable = true
-    ledge.visible = false;
-    ledge.scale.setTo(0.2, 0.5)
-
-    ledge = platforms.create(400, 340, 'platform')
-    ledge.body.immovable = true
-    ledge.scale.setTo(0.2, 0.5)
+    createPlatform(ledge, platforms, 550, 400, 0.2, 0.5, true, false);
+    createPlatform(ledge, platforms, 400, 340);
 
     let num = Math.floor(Math.random() * 2);
 
     if(num === 0){
-        ledge = platforms.create(250, 250, 'platform')
-        ledge.body.immovable = false
-        ledge.scale.setTo(0.2, 0.5)
-
-        ledge = platforms.create(550, 250, 'platform')
-        ledge.body.immovable = true
-        ledge.scale.setTo(0.2, 0.5)
+        createPlatform(ledge, platforms, 250, 250, 0.2, 0.5, false);
+        createPlatform(ledge, platforms, 550, 250, 0.2, 0.5, true);
     } else {
-        ledge = platforms.create(250, 250, 'platform')
-        ledge.body.immovable = true
-        ledge.scale.setTo(0.2, 0.5)
-
-        ledge = platforms.create(550, 250, 'platform')
-        ledge.body.immovable = false
-        ledge.scale.setTo(0.2, 0.5)
+        createPlatform(ledge, platforms, 250, 250, 0.2, 0.5, true);
+        createPlatform(ledge, platforms, 550, 250, 0.2, 0.5, false);
     }
 
     //to the right
-    ledge = platforms.create(880, 400, 'platform')
-    ledge.body.immovable = true
-    ledge.scale.setTo(0.2, 0.5)
-
-    ledge = platforms.create(1030, 340, 'platform')
-    ledge.body.immovable = true
-    ledge.scale.setTo(0.2, 0.5)
-
-    ledge = platforms.create(1180, 280, 'platform')
-    ledge.body.immovable = true
-    ledge.scale.setTo(0.2, 0.5)
+    createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, true);
+    createPlatform(ledge, platforms, 1030, 340, 0.2, 0.5, true);
+    createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, true);
 
     ledge = platforms.create(600, 650, 'platform')
     ledge.body.immovable = true
