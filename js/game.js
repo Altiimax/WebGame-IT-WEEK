@@ -64,7 +64,7 @@ function create () {
     //  Now let's create two ledges
     let ledge;
     createPlatform(ledge, platforms, 100, 640, 0.2, 0.5, 'platform');
-    createPlatform(invisbleSpike, invisbleSpikes, 100, 610, 0.2, 0.2);
+    createPlatform(invisbleSpike, invisbleSpikes, 100, 610, 0.2, 0.2, 'spike', true, false);
     //createPlatform(invisbleSpike, invisbleSpikes, 125, 610, 0.2, 0.2, 'spike', true, false);
     //createPlatform(invisbleSpike, invisbleSpikes, 150, 610, 0.2, 0.2, 'spike', true, false);
     createPlatform(ledge, platforms, 250, 640, 0.2, 0.5, 'platform');
@@ -172,7 +172,7 @@ function update () {
     game.physics.arcade.overlap(player, invisbleSpikes, () => {
         for(let i = 0, len = invisbleSpikes.children.length; i < len; i++) {
             invisbleSpikes.children[i].visible = true;
-            killPlayer();
+            let timer = setInterval(killPlayer, 800);
         }
     }, null, this);
 
@@ -230,4 +230,13 @@ function collectDiamond (player, diamond) {
 
 function killPlayer() {
     create();
+}
+
+function sleep(milliseconds) {
+    let start = new Date().getTime();
+    for (let i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds){
+            break;
+        }
+    }
 }
