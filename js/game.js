@@ -121,8 +121,8 @@ function create() {
     //  Now let's create two ledges
     createAllPlatforms();
     createPlatform(invisbleSpike, invisbleSpikes, 100, 610, 0.2, 0.2, 'spike', true, false);
-    //createPlatform(invisbleSpike, invisbleSpikes, 125, 610, 0.2, 0.2, 'spike', true, false);
-    //createPlatform(invisbleSpike, invisbleSpikes, 150, 610, 0.2, 0.2, 'spike', true, false);
+    createPlatform(invisbleSpike, invisbleSpikes, 125, 610, 0.2, 0.2, 'spike', true, false);
+    createPlatform(invisbleSpike, invisbleSpikes, 150, 610, 0.2, 0.2, 'spike', true, false);
 
 
     ledge = platforms.create(600, 650, 'platform')
@@ -194,6 +194,7 @@ function update() {
     game.physics.arcade.overlap(player, diamonds, collectDiamond, null, this)
     game.physics.arcade.overlap(player, spikes, killPlayer, null, this)
     game.physics.arcade.overlap(player, spikesTop, killPlayer, null, this)
+
     game.physics.arcade.overlap(player, invisbleSpikes, () => {
         for (let i = 0, len = invisbleSpikes.children.length; i < len; i++) {
             invisbleSpikes.children[i].visible = true;
@@ -252,7 +253,6 @@ function collectDiamond(player, diamond) {
 function killPlayer() {
     //create();
     counterScore = 0;
-    player.body.x = 10;
     clearInterval(timer);
     //this.game.state.start("gameOver");
     score = 0;
@@ -291,4 +291,17 @@ function killPlayer() {
     diamond3.body.gravity.y = 1000;
     diamond3.body.bounce.y = 0.3 + Math.random() * 0.2;
 
+    player.kill();
+    player = game.add.sprite(32, game.world.height - 150, 'redchar')
+    game.physics.arcade.enable(player)
+    player.scale.setTo(1.4, 1.4)
+
+    //  Player physics properties. Give the little guy a slight bounce.
+    player.body.bounce.y = 0.2
+    player.body.gravity.y = 800
+    player.body.collideWorldBounds = true
+
+    //  Our two animations, walking left and right.
+    player.animations.add('left', [3, 4], 10, true)
+    player.animations.add('right', [1, 2], 10, true)
 }
