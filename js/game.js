@@ -237,6 +237,7 @@ function collectDiamond (player, diamond) {
 
 function killPlayer() {
     create();
+    score = 0;
 }
 
 function sleep(milliseconds) {
