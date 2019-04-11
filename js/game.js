@@ -2,26 +2,27 @@
 const game = new Phaser.Game(1300, 800, Phaser.AUTO, '', {
     preload: preload,
     create: create,
-    update: update });
+    update: update })
 
 // Declare shared variables at the top so all methods can access them
-let score = 0;
-let scoreText;
-let platforms;
-let diamonds;
-let cursors;
-let player;
-let spikes;
-let spikesTop;
-let counterscore = 0;
+let score = 0
+let scoreText
+let platforms
+let diamonds
+let cursors
+let player
+let spike
+let spikes
+let spikesTop
+let counterScore = 0;
 
 function preload () {
     // Load & Define our game assets
-    game.load.image('background', 'assets/img/background.png');
-    game.load.image('ground', 'assets/img/ground.png');
-    game.load.image('platform', 'assets/img/platform.png');
-    game.load.image('diamond', 'assets/img/diamond.png');
-    game.load.image('spike', 'assets/img/spike.png', 32, 32);
+    game.load.image('background', 'assets/img/background.png')
+    game.load.image('ground', 'assets/img/ground.png')
+    game.load.image('platform', 'assets/img/platform.png')
+    game.load.image('diamond', 'assets/img/diamond.png')
+    game.load.image('spike', 'assets/img/spike.png', 32, 32)
     game.load.spritesheet('redchar', 'assets/img/redchar.png', 32, 32)
 }
 
@@ -32,34 +33,34 @@ function createPlatform(ledge, platforms, x, y, xScale, yScale, image, immovable
     ledge.scale.setTo(xScale, yScale);
 }
 function createspikesTop() {
-	spikesTop = game.add.group();
-	spikesTop.enableBody = true;
-	let leftCorner = 0
-	for (let i =0; i< 60; i++){
-		spike = spikesTop.create(leftCorner, 30, 'spike')
-		spike.body.immovable = true;
-		spike.scale.setTo(0.2, 0.2)
-		spike.angle = -180
-		leftCorner += 25
-		spike.body.gravity.y = 5;
-	    }
+    spikesTop = game.add.group();
+    spikesTop.enableBody = true;
+    let leftCorner = 0
+    for (let i =0; i< 60; i++){
+        spike = spikesTop.create(leftCorner, 30, 'spike')
+        spike.body.immovable = true;
+        spike.scale.setTo(0.2, 0.2)
+        spike.angle = -180
+        leftCorner += 25
+        spike.body.gravity.y = 5;
+    }
 }
 
 function create () {
     //  We're going to be using physics, so enable the Arcade Physics system
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.startSystem(Phaser.Physics.ARCADE)
 
     //  A simple background for our game
-    game.add.sprite(0, 0, 'background');
+    game.add.sprite(0, 0, 'background')
 
     //  The platforms group contains the ground and the ledges we can jump on
-    platforms = game.add.group();
+    platforms = game.add.group()
 
     //  We will enable physics for any object that is created in this group
-    platforms.enableBody = true;
+    platforms.enableBody = true
 
     // Here we create the ground.
-    let ground = platforms.create(0, game.world.height - 64, 'ground');
+    let ground = platforms.create(0, game.world.height - 64, 'ground')
 
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
     ground.scale.setTo(4, 2);
@@ -111,47 +112,51 @@ function create () {
     createPlatform(ledge, platforms, 1020, 650, 0.2, 0.5, 'platform', true, false);
     createPlatform(ledge, platforms, 1100, 450, 0.2, 0.5, 'platform', true,false);
     createPlatform(ledge, platforms, 1250, 650, 0.2, 0.5,'platform', true);
+    createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, 'platform', true);
+    createPlatform(ledge, platforms, 1030, 340, 0.2, 0.5, 'platform', true);
+    createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, 'platform', true);
 
-    ledge = platforms.create(600, 650, 'platform');
-    ledge.body.immovable = true;
-    ledge.scale.setTo(0.2, 0.5);
+
+    ledge = platforms.create(600, 650, 'platform')
+    ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
 
     let counter = 500
 
     for( let i = 0; i < 25; i++ ){
-        spike  = spikes.create(counter, 705, 'spike');
-        spike.body.immovable = true;
-        spike.scale.setTo(0.2, 0.2);
+        spike  = spikes.create(counter, 705, 'spike')
+        spike.body.immovable = true
+        spike.scale.setTo(0.2, 0.2)
         counter += 25
     }
 
 
     // The player and its settings
-    player = game.add.sprite(32, game.world.height - 150, 'redchar');
+    player = game.add.sprite(32, game.world.height - 150, 'redchar')
 
     //  We need to enable physics on the player
-    game.physics.arcade.enable(player);
-    player.scale.setTo(1.4, 1.4);
+    game.physics.arcade.enable(player)
+    player.scale.setTo(1.4, 1.4)
 
     //  Player physics properties. Give the little guy a slight bounce.
-    player.body.bounce.y = 0.2;
-    player.body.gravity.y = 800;
-    player.body.collideWorldBounds = true;
+    player.body.bounce.y = 0.2
+    player.body.gravity.y = 800
+    player.body.collideWorldBounds = true
 
     //  Our two animations, walking left and right.
-    player.animations.add('left', [3, 4], 10, true);
-    player.animations.add('right', [1, 2], 10, true);
-	
+    player.animations.add('left', [3, 4], 10, true)
+    player.animations.add('right', [1, 2], 10, true)
+
     //  Finally some diamonds to collect
-    diamonds = game.add.group();
+    diamonds = game.add.group()
 
     //  Enable physics for any object that is created in this group
-    diamonds.enableBody = true;
+    diamonds.enableBody = true
 
     //  Create diamonds to collect
     //  Drop em from the sky and bounce a bit
     let diamond = diamonds.create(1250, 700, 'diamond');
-    diamond.body.gravity.y = 1000;
+    diamond.body.gravity.y = 1000
     diamond.body.bounce.y = 0.3 + Math.random() * 0.2;
 
     let diamond2 = diamonds.create(440,100,'diamond');
@@ -169,13 +174,13 @@ function create () {
 }
 
 function update () {
-	// Spikes falling
+    // Spikes falling
     //  We want the player to stop when not moving
-    player.body.velocity.x = 0;
+    player.body.velocity.x = 0
 
     //  Setup collisions for the player, diamonds, and our platforms
-    game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.collide(diamonds, platforms);
+    game.physics.arcade.collide(player, platforms)
+    game.physics.arcade.collide(diamonds, platforms)
 
     //  Call callectionDiamond() if player overlaps with a diamond
     game.physics.arcade.overlap(player, diamonds, collectDiamond, null, this)
@@ -190,11 +195,11 @@ function update () {
 
     // Configure the controls!
     if (cursors.left.isDown) {
-        player.body.velocity.x = -200;
+        player.body.velocity.x = -200
 
         player.animations.play('left')
     } else if (cursors.right.isDown) {
-        player.body.velocity.x = 200;
+        player.body.velocity.x = 200
 
         player.animations.play('right')
     } else {
@@ -211,34 +216,22 @@ function update () {
         alert('You win!')
         score = 0
     }
-    if (score === 10){
-    	let spike;
-    	spikesTop = game.add.group();
-    	spikesTop.enableBody = true;
-    	let leftCorner = 0;
-    	for (let i =0; i< 60; i++){
-    	spike = spikesTop.create(leftCorner, 30, 'spike')
-    	spike.body.immovable = false;
-    	spike.scale.setTo(0.2, 0.2)
-    	spike.angle = -180;
-    	leftCorner += 25;
-    	spike.body.gravity.y = 5;
     if (score === 20 && counterScore === 0) {
-    	createspikesTop();
-    	counterScore++;
+        createspikesTop();
+        counterScore++;
     }
 
 }
 
 function collectDiamond (player, diamond) {
     // Removes the diamond from the screen
-    diamond.kill();
+    diamond.kill()
 
     //create(); => restarts the game
 
     //  And update the score
-    score += 10;
-    scoreText.text = 'Score: ' + score;
+    score += 10
+    scoreText.text = 'Score: ' + score
     return true
 }
 
