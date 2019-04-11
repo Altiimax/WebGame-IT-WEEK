@@ -64,7 +64,7 @@ function create () {
 
     //to the left
     createPlatform(ledge, platforms, 550, 400, 0.2, 0.5, true, false);
-    createPlatform(ledge, platforms, 400, 340);
+    createPlatform(ledge, platforms, 400, 340,0.2, 0.5);
 
     let num = Math.floor(Math.random() * 2);
 
@@ -80,10 +80,7 @@ function create () {
     createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, true);
     createPlatform(ledge, platforms, 1030, 340, 0.2, 0.5, true);
     createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, true);
-
-    ledge = platforms.create(600, 650, 'platform')
-    ledge.body.immovable = true
-    ledge.scale.setTo(0.2, 0.5)
+    createPlatform(ledge, platforms, 600, 650, 0.2, 0.5, true);
 
     let spike;
     let counter = 500
