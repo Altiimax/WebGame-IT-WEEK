@@ -1,8 +1,9 @@
 // Initialize the Phaser Game object and set default game window size
-const game = new Phaser.Game(1300, 800, Phaser.AUTO, '', {
+const game = new Phaser.Game(1300, 800, Phaser.AUTO, 'gameOver', {
     preload: preload,
     create: create,
-    update: update })
+    update: update
+})
 
 // Declare shared variables at the top so all methods can access them
 let score = 0
@@ -15,6 +16,7 @@ let spike
 let spikes
 let spikesTop
 let counterScore = 0;
+let timer;
 
 function preload () {
     // Load & Define our game assets
@@ -188,8 +190,8 @@ function update () {
     game.physics.arcade.overlap(player, spikesTop, killPlayer, null, this)
     game.physics.arcade.overlap(player, invisbleSpikes, () => {
         for(let i = 0, len = invisbleSpikes.children.length; i < len; i++) {
-            invisbleSpikes.children[i].visible = true;
-            killPlayer();
+                invisbleSpikes.children[i].visible = true;
+                killPlayer();
         }
     }, null, this);
 
@@ -226,9 +228,6 @@ function update () {
 function collectDiamond (player, diamond) {
     // Removes the diamond from the screen
     diamond.kill()
-
-    //create(); => restarts the game
-
     //  And update the score
     score += 10
     scoreText.text = 'Score: ' + score
@@ -236,15 +235,37 @@ function collectDiamond (player, diamond) {
 }
 
 function killPlayer() {
-    create();
+    //create();
+    player.body.x =  10;
+    clearInterval(timer);
+    //this.game.state.start("gameOver");
     score = 0;
-}
+    scoreText.text = 'Score: ' + score
 
-function sleep(milliseconds) {
-    let start = new Date().getTime();
-    for (let i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds){
-            break;
+    for(let i = 0, len = invisbleSpikes.children.length; i < len; i++) {
+        invisbleSpikes.children[i].visible = false;
+    }
+
+    if(spikesTop !== undefined) {
+        for (let i = 0, len = spikesTop.children.length; i < len; i++) {
+            spikesTop.children[i].kill();
         }
     }
+
+    for (let i = 0, len = diamonds.children.length; i < len; i++) {
+        diamonds.children[i].kill();
+    }
+
+    let diamond = diamonds.create(1250, 700, 'diamond');
+    diamond.body.gravity.y = 1000
+    diamond.body.bounce.y = 0.3 + Math.random() * 0.2;
+
+    let diamond2 = diamonds.create(440,100,'diamond');
+    diamond2.body.gravity.y = 1000;
+    diamond2.body.bounce.y = 0.3 + Math.random() * 0.2;
+
+    let diamond3 = diamonds.create(620,600, 'diamond');
+    diamond3.body.gravity.y = 1000;
+    diamond3.body.bounce.y = 0.3 + Math.random() * 0.2;
+
 }
