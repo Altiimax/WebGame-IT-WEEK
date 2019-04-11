@@ -59,8 +59,8 @@ function createAllPlatforms() {
     ground.body.immovable = true;
 
     let ledge;
-    createPlatform(ledge, platforms, 100, 640, 0.2, 0.5, 'platform');
-    createPlatform(ledge, platforms, 250, 640, 0.2, 0.5, 'platform');
+    createPlatform(ledge, platforms, 100, 640, 0.3, 0.5, 'platform');
+    createPlatform(ledge, platforms, 250, 600, 0.2, 0.5, 'platform');
     createPlatform(ledge, platforms, 430, 580, 0.2, 0.5, 'platform');
     createPlatform(ledge, platforms, 580, 520, 0.2, 0.5, 'platform');
     createPlatform(ledge, platforms, 730, 460, 0.2, 0.5, 'platform');
@@ -120,9 +120,9 @@ function create() {
 
     //  Now let's create two ledges
     createAllPlatforms();
-    createPlatform(invisbleSpike, invisbleSpikes, 100, 610, 0.2, 0.2, 'spike', true, false);
-    createPlatform(invisbleSpike, invisbleSpikes, 125, 610, 0.2, 0.2, 'spike', true, false);
-    createPlatform(invisbleSpike, invisbleSpikes, 150, 610, 0.2, 0.2, 'spike', true, false);
+    //createPlatform(invisbleSpike, invisbleSpikes, 100, 610, 0.2, 0.2, 'spike', true, false);
+    //createPlatform(invisbleSpike, invisbleSpikes, 125, 610, 0.2, 0.2, 'spike', true, false);
+    createPlatform(invisbleSpike, invisbleSpikes, 145, 610, 0.2, 0.2, 'spike', true, false);
 
 
     ledge = platforms.create(600, 650, 'platform')
