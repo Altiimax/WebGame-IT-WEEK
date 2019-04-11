@@ -110,6 +110,10 @@ function create () {
     ledge.body.immovable = true
     ledge.scale.setTo(0.2, 0.5)
 
+    ledge = platforms.create(600, 650, 'platform')
+    ledge.body.immovable = true
+    ledge.scale.setTo(0.2, 0.5)
+
     let spike;
     let counter = 500
     let leftCorner = 0
@@ -154,17 +158,15 @@ function create () {
     //  Enable physics for any object that is created in this group
     diamonds.enableBody = true
 
-    //  Create 12 diamonds evenly spaced apart
-    for (var i = 0; i < 1; i++) {
-        let diamond = diamonds.create(760, 500, 'diamond')
+    //  Create diamonds to collect
+        let diamond = diamonds.create(620, 600, 'diamond')
 
         //  Drop em from the sky and bounce a bit
         diamond.body.gravity.y = 1000
         diamond.body.bounce.y = 0.3 + Math.random() * 0.2
-    }
 
     //  Create the score text
-    scoreText = game.add.text(16, 16, '', { fontSize: '32px', fill: '#000' })
+    scoreText = game.add.text(16, 16, '', { fontSize: '32px', fill: '#FFF' })
 
     //  And bootstrap our controls
     cursors = game.input.keyboard.createCursorKeys()
