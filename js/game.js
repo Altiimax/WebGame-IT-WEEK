@@ -33,17 +33,17 @@ function createPlatform(ledge, platforms, x, y, xScale, yScale, image, immovable
     ledge.scale.setTo(xScale, yScale);
 }
 function createspikesTop() {
-	spikesTop = game.add.group();
-	spikesTop.enableBody = true;
-	let leftCorner = 0
-	for (let i =0; i< 60; i++){
-		spike = spikesTop.create(leftCorner, 30, 'spike')
-		spike.body.immovable = true;
-		spike.scale.setTo(0.2, 0.2)
-		spike.angle = -180
-		leftCorner += 25
-		spike.body.gravity.y = 5;
-	    }
+    spikesTop = game.add.group();
+    spikesTop.enableBody = true;
+    let leftCorner = 0
+    for (let i =0; i< 60; i++){
+        spike = spikesTop.create(leftCorner, 30, 'spike')
+        spike.body.immovable = true;
+        spike.scale.setTo(0.2, 0.2)
+        spike.angle = -180
+        leftCorner += 25
+        spike.body.gravity.y = 5;
+    }
 }
 
 function create () {
@@ -129,8 +129,8 @@ function create () {
         spike.scale.setTo(0.2, 0.2)
         counter += 25
     }
-	
-    
+
+
     // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'redchar')
 
@@ -146,7 +146,7 @@ function create () {
     //  Our two animations, walking left and right.
     player.animations.add('left', [3, 4], 10, true)
     player.animations.add('right', [1, 2], 10, true)
-	
+
     //  Finally some diamonds to collect
     diamonds = game.add.group()
 
@@ -174,7 +174,7 @@ function create () {
 }
 
 function update () {
-	// Spikes falling
+    // Spikes falling
     //  We want the player to stop when not moving
     player.body.velocity.x = 0
 
@@ -217,10 +217,10 @@ function update () {
         score = 0
     }
     if (score === 20 && counterScore === 0) {
-    	createspikesTop();
-    	counterScore++;
+        createspikesTop();
+        counterScore++;
     }
-    
+
 }
 
 function collectDiamond (player, diamond) {
