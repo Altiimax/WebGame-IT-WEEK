@@ -150,6 +150,11 @@ function create () {
 }
 
 function update () {
+	// Spikes falling
+	for (let i =0;i<60;i++) {
+		
+	}
+
     //  We want the player to stop when not moving
     player.body.velocity.x = 0
 
