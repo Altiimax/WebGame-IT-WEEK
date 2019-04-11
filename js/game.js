@@ -11,6 +11,8 @@ let platforms
 let diamonds
 let cursors
 let player
+let spikes
+let spikesTop
 
 function preload () {
     // Load & Define our game assets
