@@ -11,6 +11,8 @@ let platforms
 let diamonds
 let cursors
 let player
+let spikes
+let spikesTop
 
 function preload () {
     // Load & Define our game assets
@@ -121,6 +123,9 @@ function create () {
     spikes = game.add.group()
     spikes.enableBody = true
 
+    spikesTop = game.add.group()
+    spikesTop.enableBody = true
+
     for( let i = 0; i < 25; i++ ){
         spike  = spikes.create(counter, 705, 'spike')
         spike.body.immovable = true
@@ -129,12 +134,13 @@ function create () {
     }
 
     for (let i =0; i< 60; i++){
-    	spike = spikes.create(leftCorner, 30, 'spike')
+    	spike = spikesTop.create(leftCorner, 30, 'spike')
     	spike.body.immovable = true
     	spike.scale.setTo(0.2, 0.2)
     	spike.angle = -180
     	leftCorner += 25
     }
+
 
     // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'redchar')
