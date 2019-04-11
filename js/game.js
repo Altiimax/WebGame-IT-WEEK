@@ -11,8 +11,10 @@ let platforms
 let diamonds
 let cursors
 let player
+let spike
 let spikes
 let spikesTop
+let counterScore = 0;
 
 function preload () {
     // Load & Define our game assets
@@ -29,6 +31,19 @@ function createPlatform(ledge, platforms, x, y, xScale, yScale, image, immovable
     ledge.body.immovable = immovable;
     ledge.visible = visible;
     ledge.scale.setTo(xScale, yScale);
+}
+function createspikesTop() {
+	spikesTop = game.add.group();
+	spikesTop.enableBody = true;
+	let leftCorner = 0
+	for (let i =0; i< 60; i++){
+		spike = spikesTop.create(leftCorner, 30, 'spike')
+		spike.body.immovable = true;
+		spike.scale.setTo(0.2, 0.2)
+		spike.angle = -180
+		leftCorner += 25
+		spike.body.gravity.y = 5;
+	    }
 }
 
 function create () {
@@ -114,6 +129,7 @@ function create () {
         spike.scale.setTo(0.2, 0.2)
         counter += 25
     }
+	
     
     // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'redchar')
@@ -159,7 +175,6 @@ function create () {
 
 function update () {
 	// Spikes falling
-
     //  We want the player to stop when not moving
     player.body.velocity.x = 0
 
@@ -170,6 +185,7 @@ function update () {
     //  Call callectionDiamond() if player overlaps with a diamond
     game.physics.arcade.overlap(player, diamonds, collectDiamond, null, this)
     game.physics.arcade.overlap(player, spikes, killPlayer, null, this)
+    game.physics.arcade.overlap(player, spikesTop, killPlayer, null, this)
     game.physics.arcade.overlap(player, invisbleSpikes, () => {
         for(let i = 0, len = invisbleSpikes.children.length; i < len; i++) {
             invisbleSpikes.children[i].visible = true;
@@ -200,21 +216,11 @@ function update () {
         alert('You win!')
         score = 0
     }
-    if (score === 10){
-    	let spike;
-    	spikesTop = game.add.group();
-    	spikesTop.enableBody = true;
-    	let leftCorner = 0
-    	for (let i =0; i< 60; i++){
-    	spike = spikesTop.create(leftCorner, 30, 'spike')
-    	spike.body.immovable = false
-    	spike.scale.setTo(0.2, 0.2)
-    	spike.angle = -180
-    	leftCorner += 25
-    	spike.body.gravity.y = 5;
+    if (score === 20 && counterScore === 0) {
+    	createspikesTop();
+    	counterScore++;
     }
-    }
-    game.physics.arcade.overlap(player, spikesTop, killPlayer, null, this)
+    
 }
 
 function collectDiamond (player, diamond) {
