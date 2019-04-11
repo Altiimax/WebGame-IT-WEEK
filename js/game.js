@@ -38,7 +38,7 @@ function create () {
     //  A simple background for our game
     game.add.sprite(0, 0, 'background')
 
-    //  The platforms group contains the ground and the 2 ledges we can jump on
+    //  The platforms group contains the ground and the ledges we can jump on
     platforms = game.add.group()
 
     //  We will enable physics for any object that is created in this group
@@ -87,19 +87,20 @@ function create () {
     }
 
     //to the right
-    createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, true);
-    createPlatform(ledge, platforms, 1030, 350, 0.2, 0.5, true);
-    createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, true);
-    createPlatform(ledge, platforms, 600, 650, 0.2, 0.5, true);
-    createPlatform(ledge, platforms, 410, 150, 0.2, 0.5, true, false)
+    createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, 'platform', true);
+    createPlatform(ledge, platforms, 1030, 350, 0.2, 0.5, 'platform', true);
+    createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5,'platform',  true);
+    createPlatform(ledge, platforms, 600, 650, 0.2, 0.5,'platform',  true);
+    createPlatform(ledge, platforms, 410, 150, 0.2, 0.5, 'platform', true, false)
     //lower right 3
-    createPlatform(ledge, platforms, 1060, 550, 0.2, 0.5, true,false);
-    createPlatform(ledge, platforms, 1020, 650, 0.2, 0.5, true, false);
-    createPlatform(ledge, platforms, 1100, 450, 0.2, 0.5, true,false);
-    createPlatform(ledge, platforms, 1250, 650, 0.2, 0.5,true);
+    createPlatform(ledge, platforms, 1060, 550, 0.2, 0.5, 'platform', true,false);
+    createPlatform(ledge, platforms, 1020, 650, 0.2, 0.5, 'platform', true, false);
+    createPlatform(ledge, platforms, 1100, 450, 0.2, 0.5, 'platform', true,false);
+    createPlatform(ledge, platforms, 1250, 650, 0.2, 0.5,'platform', true);
     createPlatform(ledge, platforms, 880, 400, 0.2, 0.5, 'platform', true);
     createPlatform(ledge, platforms, 1030, 340, 0.2, 0.5, 'platform', true);
     createPlatform(ledge, platforms, 1180, 280, 0.2, 0.5, 'platform', true);
+
 
     ledge = platforms.create(600, 650, 'platform')
     ledge.body.immovable = true
@@ -113,7 +114,7 @@ function create () {
         spike.scale.setTo(0.2, 0.2)
         counter += 25
     }
-
+    
     // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'redchar')
 
@@ -129,7 +130,7 @@ function create () {
     //  Our two animations, walking left and right.
     player.animations.add('left', [3, 4], 10, true)
     player.animations.add('right', [1, 2], 10, true)
-
+	
     //  Finally some diamonds to collect
     diamonds = game.add.group()
 
@@ -212,8 +213,8 @@ function update () {
     	leftCorner += 25
     	spike.body.gravity.y = 5;
     }
-    game.physics.arcade.overlap(player, spikesTop, killPlayer, null, this)
     }
+    game.physics.arcade.overlap(player, spikesTop, killPlayer, null, this)
 }
 
 function collectDiamond (player, diamond) {
