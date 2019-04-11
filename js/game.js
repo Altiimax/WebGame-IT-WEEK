@@ -251,6 +251,7 @@ function collectDiamond(player, diamond) {
 
 function killPlayer() {
     //create();
+    counterScore = 0;
     player.body.x = 10;
     clearInterval(timer);
     //this.game.state.start("gameOver");
